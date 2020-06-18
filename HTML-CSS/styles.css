@@ -1,0 +1,51 @@
+h1 {
+    color:blue;
+    text-align:center;
+    
+}
+
+p {
+    color: red;
+}
+
+div {
+    background-color: teal;
+    border: 3px solid blue;
+    font-family: Arial, sans-serif;
+    font-size: 28px;
+    font-weight: bold;
+    width: 100px;
+    height: 400px;
+    margin: 30px;
+    padding: 20px;
+}
+
+table {
+    border: 2px solid black;
+    border-collapse: collapse;
+    width: 50%;
+}
+
+th, td {
+    border: 1px solid black;
+    padding: 5px;
+    text-align: center;
+}
+
+th{
+    background-color: gray;
+}
+
+#top {
+    font-size: 36px;
+}
+#middle {
+    font-size: 26px;
+}
+#bottom {
+    font-size: 20px;
+}
+
+.name{
+    font-weight: bold;
+}
