@@ -83,6 +83,10 @@
         .hide {
             display: none;
         }
+
+        * {
+            font-family: Arial;
+        }
     </style>
 </head>
 
@@ -94,16 +98,18 @@
         <div id="verde" class="color verde right" data-color="verde"></div>
         <button id="btnEmpezar" class="btn-start" onclick="empezarJuego()">Empezar a jugar!</button>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
     <script>
         const celeste = document.getElementById('celeste')
         const violeta = document.getElementById('violeta')
         const naranja = document.getElementById('naranja')
         const verde = document.getElementById('verde')
         const btnEmpezar = document.getElementById('btnEmpezar')
-        const ULTIMO_NIVEL = 10
+        const ULTIMO_NIVEL = 1
 
         class Juego {
             constructor() {
+                this.inicializar = this.inicializar.bind(this)
                 this.inicializar()
                 this.generarSecuencia()
                 setTimeout(this.siguienteNivel(), 500)                
@@ -112,8 +118,8 @@
             inicializar() {
                 this.elegirColor = this.elegirColor.bind(this)
                 this.siguienteNivel = this.siguienteNivel.bind(this)
-                btnEmpezar.classList.add('hide')
-                this.level = 1
+                this.toggleBtnEmpezar()
+                this.level = 10
                 this.colores = {
                     celeste,
                     violeta,
@@ -122,6 +128,13 @@
                 } 
             }
 
+            toggleBtnEmpezar(){
+                if(btnEmpezar.classList.contains('hide')){
+                    btnEmpezar.classList.remove('hide')
+                } else {
+                    btnEmpezar.classList.add('hide')
+                }
+            }
             generarSecuencia() {
                 this.secuencia = new Array(ULTIMO_NIVEL).fill(0).map(n => Math.floor(Math.random() * 4))
             }
@@ -198,15 +211,25 @@
                         this.level++
                         //this.eliminarEventosClick()
                         if(this.level === (ULTIMO_NIVEL + 1)){
-                            //Gano
+                            this.ganoJuego()
                         } else {
                             setTimeout(this.siguienteNivel,1500)
                         }
                         
                     }
                 } else {
-                    //perdio
+                    this.perdioJuego()
                 }
+            }
+
+            ganoJuego(){
+                swal('Felicitaciones','Ganaste el juego', 'success')
+                .then(this.inicializar)
+            }
+
+            perdioJuego(){
+                swal('Oops','Perdiste el juego', 'error')
+                .then(this.inicializar)
             }
         }    
 
