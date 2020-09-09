@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link href="https://fonts.googleapis.com/css?family=Architects+Daughter" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/css/materialize.min.css">
+    <link rel="stylesheet" href="index.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.8/js/materialize.min.js"></script>
+    <title>¡Encuentra el tesoro!</title>
+    <link rel="shortcut icon" href="../img/icono.ico">
+  </head>
+  <body background="../img/farm.png">
+    <div class="row">
+      <div class="col s8">
+        <canvas id="game" width="600" height="500"></canvas>
+        <div class="row">
+          <div class="center col s4">
+            <a class="waves-effect waves-light yellow darken-4 black-text btn" onclick="rotateLeft()" id="btn-left">
+              <i class="fa fa-repeat fa-flip-horizontal right" aria-hidden="true"></i>
+              Izquierda
+            </a>
+          </div>
+          <div class="center col s4">
+            <a class="waves-effect waves-light green darken-3 btn" onclick="advance()" id="btn-forward">
+              <i class="fa fa-arrow-up right" aria-hidden="true"></i>
+              Avanzar
+            </a>
+          </div>
+          <div class="center col s4">
+            <a class="waves-effect waves-light blue lighten-3 black-text btn" onclick="rotateRight()" id="btn-right">
+              <i class="fa fa-repeat right" aria-hidden="true"></i>
+              Derecha
+            </a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="center col s4 offset-s4">
+            <a class="waves-effect waves-light blue-grey lighten-2 btn" onclick="undo()" id="btn-undo">
+              Deshacer
+            </a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="center col s4 offset-s4">
+            <a href="../index.html"><input class="waves-effect waves-light blue-grey lighten-2 btn"  type="button" value="Regresar"></a>
+          </div>
+        </div>
+      </div>
+      <div class="col s4" id="instructions">
+        <h2 class="pink-text text-lighten-4">Instrucciones</h2>
+      </div>
+    </div>
+    <script src="game_hard.js" charset="utf-8"></script>
+  </body>
+</html>

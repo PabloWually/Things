@@ -1,0 +1,78 @@
+body {
+    /*background: #ffff66;*/
+    background-size: 100%;
+    color: #333;
+    font-family: Arial;
+    font-size: 16px;
+    margin: 0;
+    padding: 0;
+}
+
+#container{
+    width: 70%;
+    padding: 1em;
+    text-align: left;
+    border: 1px solid #DDD;
+    margin: 0 auto;
+}
+
+#container h1{
+    font-size: 20px;
+}
+
+#cabecera{
+    background: rgb(255, 148, 8);
+    box-shadow: 0px 2px 20px 0px rgba(0, 0, 0, 0.5);
+    color: white;
+    font-weight: hold;
+    margin: 0;
+    padding: 0.5cm;
+}
+
+#cabecera #tagline{
+    padding: 0 0 0 1cm;
+    font-weight: hold;
+    font-size: normal;
+}
+
+#post{
+    background: white;
+    padding: 1em;
+}
+
+#cabecera #logo{
+    width: 20px;
+    vertical-align: middle;
+}
+
+#footer{
+    background: rgb(255, 148, 8);
+    color: white;
+    text-align: center;
+    padding: 0.5em;
+}
+
+#me{
+    text-align: center;
+}
+
+#game {
+    font-family: Arial;
+    color: #ffffff;
+    font-size: 35px;
+    padding: 10px;
+    text-decoration: none;
+    -webkit-border-radius: 28px;
+    -moz-border-radius: 28px;
+    border-radius: 28px;
+    -webkit-box-shadow: 0px 1px 3px #666666;
+    -moz-box-shadow: 0px 1px 3px #666666;
+    box-shadow: 0px 1px 3px #666666;
+    text-shadow: 1px 1px 3px #666666;
+    border: solid #fa8c05 2px;
+    background: -webkit-gradient(linear, 0 0, 0 100%, from(#fab53f), to(#fa8c05));
+    background: -moz-linear-gradient(top, #fab53f, #fa8c05);
+  }
+  #game:hover {
+    background: #ffaa42;
+  }
