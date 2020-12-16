@@ -14,5 +14,6 @@ node_modules/
 crededentials.json
 token.pickle
 
-Archivos de Log
+#Archivos de Log
 log.log
+.DS_Stores/*
