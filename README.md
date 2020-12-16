@@ -1,2 +1,2 @@
 # Things
-Random Repositorio
+Repository of random projects in diferentes languages. 

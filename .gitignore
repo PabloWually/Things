@@ -2,6 +2,7 @@ node_modules/
 
 #VSCode
 .vscode/*
+PythonDrive/.vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
@@ -12,9 +13,10 @@ node_modules/
 .history/
 
 #Credentials google api
-crededentials.json
-token.pickle
+PythonDrive/credentials.json
+PythonDrive/token.pickle
 
 #Archivos de Log
-log.log
+PythonDrive/log.log
+PythonDrive/.DS_Store
 .DS_Store
