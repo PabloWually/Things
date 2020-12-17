@@ -7,14 +7,13 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 
 PATH = '/Users/asistemas/Desktop/Txt/'
-PATH_ = '/Users/asistemas/Desktop/PythonDrive/'
-
+PATH_ = '/Users/asistemas/Things/PythonDrive/'
+FOLDER_NAME = 'Txt'
 # If modifying these scopes, delete the file token.pickle.
 SCOPES = ['https://www.googleapis.com/auth/drive']
 
 def main():
-    """Shows basic usage of the Drive v3 API.
-    Prints the names and ids of the first 10 files the user has access to.
+    """ Upload txt files of a specific folder
     """
     creds = None
     # The file token.pickle stores the user's access and refresh tokens, and is
@@ -50,27 +49,35 @@ def main():
     results = service.files().list(q="mimeType='application/vnd.google-apps.folder'", pageSize=10, fields="nextPageToken, files(name, id)").execute() # pylint: disable=maybe-no-member
     items = results.get('files', [])
 
-    idFolder = findFolder(items,'Txt')
+    idFolder = findFolder(items,FOLDER_NAME)
     if idFolder:
-        file.write('Folder Txt found        ' + datetime.today().strftime('%Y/%m/%d %H:%M:%S') + os.linesep)
+        file.write('Folder '+FOLDER_NAME+' found        ' + datetime.today().strftime('%Y/%m/%d %H:%M:%S') + os.linesep)
     else:
-        file.write('Folder Txt not found        ' + datetime.today().strftime('%Y/%m/%d %H:%M:%S') + os.linesep)
+        file.write('Folder '+FOLDER_NAME+' not found        ' + datetime.today().strftime('%Y/%m/%d %H:%M:%S') + os.linesep)
         file_metadata = {
-            'name': 'Txt',
+            'name': FOLDER_NAME,
             'mimeType': 'application/vnd.google-apps.folder'
         }
         fileDrive = service.files().create(body=file_metadata, fields='id').execute() # pylint: disable=maybe-no-member
-        file.write('Folder created Folder ID: %s' % fileDrive.get('id') + '         ' + datetime.today().strftime('%Y/%m/%d %H:%M:%S') + os.linesep)
+        file.write('Folder '+FOLDER_NAME+' created whit ID: %s' % fileDrive.get('id') + '         ' + datetime.today().strftime('%Y/%m/%d %H:%M:%S') + os.linesep)
         idFolder = fileDrive.get('id')
 
-    # filesToUpload = getFileToUpload()
-    # file_metadata = {[]}
-    # for fileToUpload in filesToUpload:
-    #     file_metadata.add('name':fileToUpload, 'parents':[idFolder])
-    
+    file.write('Preparing to upload files       ' + datetime.today().strftime('%Y/%m/%d %H:%M:%S') + os.linesep)
+    filesToUpload = getFileToUpload()
+    file.write('Files found to upload:' + ' '.join(map(str,filesToUpload)) + os.linesep)
+
+    for filename, mimeType in filesToUpload:
+        metadata = {'name': filename,
+                    'mimeType': mimeType,
+                    'parents': [idFolder]
+                    }
+        res = service.files().create(body=metadata, media_body=PATH+filename).execute() # pylint: disable=maybe-no-member
+        if res:
+            file.write(res['name']+'    '+res['id']+ '  ' +res['mimeType']+'    '+ os.linesep) 
+    file.write('Files created succesfully       ' + datetime.today().strftime('%Y/%m/%d %H:%M:%S') + os.linesep)
 
 def findFolder(items, name):
-    """ Search folder by the name and return the ID of Folder 
+    """ Searchs folder by name and return the ID of Folder
     """
     for s in range(len(items)):
         if items[s]['name'] == name:
@@ -79,14 +86,15 @@ def findFolder(items, name):
             return None
 
 def getFileToUpload():
-    """ Get .txt files in a folder to upload
+    """ Get .txt files of folder to upload
     """ 
     contenido = os.listdir(PATH)
     txt = []
     for fichero in contenido:
         if os.path.isfile(os.path.join(PATH, fichero)) and fichero.endswith('.txt'):
-            txt.append(fichero)
+            txt.append((fichero, 'text/plain'))
     return	txt
 
 if __name__ == '__main__':
     main()
+ 
