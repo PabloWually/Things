@@ -66,7 +66,10 @@ def main():
             'mimeType': 'application/vnd.google-apps.folder'
         }
         fileDrive = service.files().create(body=file_metadata, fields='id').execute() # pylint: disable=maybe-no-member
-        file.write('Folder '+FOLDER_NAME+' created whit ID: %s' % fileDrive.get('id') + '         ' + datetime.today().strftime('%Y/%m/%d %H:%M:%S') + os.linesep)
+        if fileDrive:
+            file.write('Folder '+FOLDER_NAME+' created whit ID: %s' % fileDrive.get('id') + '         ' + datetime.today().strftime('%Y/%m/%d %H:%M:%S') + os.linesep)
+        else:
+            file.write('There was an error at create the folder' + datetime.today().strftime('%Y/%m/%d %H:%M:%S') + os.linesep)
         idFolder = fileDrive.get('id')
     file.close()
 
@@ -96,6 +99,8 @@ def updateFiles(idFolder,service,PATH,items):
                 res = service.files().update(fileId=item['id'], body=metadata, media_body=PATH+fileLocal).execute() # pylint: disable=maybe-no-member
                 if res:
                     file.write(res['name']+'    '+res['id']+ '  ' +res['mimeType']+'    '+ os.linesep) 
+                else:
+                    file.write('There was an error at update the file: ' +fileLocal + ' ' + datetime.today().strftime('%Y/%m/%d %H:%M:%S') + os.linesep)
     
         if not fileExist:
             metadata = {'name': fileLocal,
@@ -105,6 +110,8 @@ def updateFiles(idFolder,service,PATH,items):
             res = service.files().create(body=metadata, media_body=PATH+fileLocal).execute() # pylint: disable=maybe-no-member
             if res:
                 file.write(res['name']+'    '+res['id']+ '  ' +res['mimeType']+'    '+ os.linesep) 
+            else:
+                file.write('There was an error at create the file: ' +fileLocal + ' ' + datetime.today().strftime('%Y/%m/%d %H:%M:%S') + os.linesep)
             file.write('Files created succesfully       ' + datetime.today().strftime('%Y/%m/%d %H:%M:%S') + os.linesep)
 
     file.write('Files updated succesfully       ' + datetime.today().strftime('%Y/%m/%d %H:%M:%S') + os.linesep)        
@@ -124,6 +131,9 @@ def createFiles(idFolder, service, PATH):
         res = service.files().create(body=metadata, media_body=PATH+filename).execute() # pylint: disable=maybe-no-member
         if res:
             file.write(res['name']+'    '+res['id']+ '  ' +res['mimeType']+'    '+ os.linesep) 
+        else:
+                file.write('There was an error at create the file: ' +filename + ' ' + datetime.today().strftime('%Y/%m/%d %H:%M:%S') + os.linesep)
+            
     file.write('Files created succesfully       ' + datetime.today().strftime('%Y/%m/%d %H:%M:%S') + os.linesep)
     file.close()
 
