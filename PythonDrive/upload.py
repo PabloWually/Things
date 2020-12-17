@@ -74,14 +74,16 @@ def main():
     items = results.get('files', [])
     
     if items:
-        print(items)
         updateFiles(idFolder,service,PATH,items)
     else:
-        print('no files founded')
         createFiles(idFolder,service,PATH)
 
 def updateFiles(idFolder,service,PATH,items):
+    file = open(PATH_ + "log.log", "a")
+    file.write('Preparing to update files       ' + datetime.today().strftime('%Y/%m/%d %H:%M:%S') + os.linesep)
     filesToUpload = getFileToUpload()
+    file.write('Files found to update:' + ' '.join(map(str,filesToUpload)) + os.linesep)
+
     for fileLocal, mimeType in filesToUpload:
         fileExist = False
         for item in items:
@@ -92,12 +94,21 @@ def updateFiles(idFolder,service,PATH,items):
                         'addParents': [idFolder]
                         }
                 res = service.files().update(fileId=item['id'], body=metadata, media_body=PATH+fileLocal).execute() # pylint: disable=maybe-no-member
+                if res:
+                    file.write(res['name']+'    '+res['id']+ '  ' +res['mimeType']+'    '+ os.linesep) 
+    
         if not fileExist:
             metadata = {'name': fileLocal,
                         'mimeType': mimeType,
                         'parents': [idFolder]
                         }
             res = service.files().create(body=metadata, media_body=PATH+fileLocal).execute() # pylint: disable=maybe-no-member
+            if res:
+                file.write(res['name']+'    '+res['id']+ '  ' +res['mimeType']+'    '+ os.linesep) 
+            file.write('Files created succesfully       ' + datetime.today().strftime('%Y/%m/%d %H:%M:%S') + os.linesep)
+
+    file.write('Files updated succesfully       ' + datetime.today().strftime('%Y/%m/%d %H:%M:%S') + os.linesep)        
+    file.close()
 
 def createFiles(idFolder, service, PATH):
     file = open(PATH_ + "log.log", "a")
