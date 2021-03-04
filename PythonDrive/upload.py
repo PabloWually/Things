@@ -10,7 +10,7 @@ from google.auth.transport.requests import Request
 # PATH: path of file's folder
 # FOLDER_NAME: folder's name in Google Driver
 PATH = '/Users/asistemas/Desktop/Txt/'
-PATH_ = '/Users/asistemas/Things/PythonDrive/'
+PATH_ = '/Users/asistemas/Repositories/Things/PythonDrive/'
 FOLDER_NAME = 'Txt'
 # If modifying these scopes, delete the file token.pickle.
 SCOPES = ['https://www.googleapis.com/auth/drive']
